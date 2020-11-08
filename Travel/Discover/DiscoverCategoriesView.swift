@@ -21,18 +21,22 @@ struct DiscoverCategoriesView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 14) {
                 ForEach(categories, id: \.self) { category in
-                    VStack(spacing: 8) {
-                        Image(systemName: category.imageName)
-                            .font(.system(size: 20))
-                            .foregroundColor(Color(#colorLiteral(red: 1, green: 0.6157074571, blue: 0.1265262663, alpha: 1)))
-                            .frame(width: 64, height: 64)
-                            .background(Color.white)
-                            .cornerRadius(64)
-                        Text(category.name)
-                            .font(.system(size: 12, weight: .semibold))
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.white)
-                    }.frame(width: 68)
+                    NavigationLink(
+                        destination: CategoryDetailsView(),
+                        label: {
+                            VStack(spacing: 8) {
+                                Image(systemName: category.imageName)
+                                    .font(.system(size: 20))
+                                    .foregroundColor(Color(#colorLiteral(red: 1, green: 0.6157074571, blue: 0.1265262663, alpha: 1)))
+                                    .frame(width: 64, height: 64)
+                                    .background(Color.white)
+                                    .cornerRadius(64)
+                                Text(category.name)
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.white)
+                            }.frame(width: 68)
+                        })
                     
                 }
                 
@@ -42,12 +46,27 @@ struct DiscoverCategoriesView: View {
     }
 }
 
+
 struct DiscoverCategoriesView_Previews: PreviewProvider {
     static var previews: some View {
-        ZStack {
-            Color.orange
-            DiscoverCategoriesView()
+//        DiscoverView()
+        
+        NavigationView {
+            CategoryDetailsView()
         }
+        
+//        NavigationView {
+//            NavigationLink(
+//                destination: Text("Destination"),
+//                label: {
+//                    Text("Navigate")
+//                }
+//            )
+//        }
+//        ZStack {
+//            Color.orange
+//            DiscoverCategoriesView()
+//        }
     
     }
 }
