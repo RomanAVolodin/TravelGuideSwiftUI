@@ -15,13 +15,26 @@ class CategoryDetailsViewModel: ObservableObject {
     @Published var places = [Place]()
     @Published var errorMessage = ""
     
-    init() {
+    init(name: String) {
         
-        guard let url = URL(string: "https://travel.letsbuildthatapp.com/travel_discovery/category?name=art") else {return}
+        let urlString = "https://travel.letsbuildthatapp.com/travel_discovery/category?name=\(name.lowercased())".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        
+        guard let url = URL(string: urlString) else {
+            self.isLoading = false
+            return
+            
+        }
         
         URLSession.shared.dataTask(with: url) { (data, resp, err) in
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                
+                if let statusCode = (resp as? HTTPURLResponse)?.statusCode, statusCode >= 400 {
+                    self.isLoading = false
+                    self.errorMessage = "Bad Status: \(statusCode)"
+                    return
+                }
+                
                 guard let data = data else { return }
                 
                 do {
@@ -43,8 +56,17 @@ class CategoryDetailsViewModel: ObservableObject {
 
 struct CategoryDetailsView: View {
     
-//    @State var isLoading = true
-    @ObservedObject var vm = CategoryDetailsViewModel()
+    private let name: String
+    @ObservedObject private var vm: CategoryDetailsViewModel
+    
+    init(name: String) {
+        print("Loaded Category details view for name \(name)")
+        self.name = name
+        self.vm = .init(name: name)
+    }
+    
+//    let name: String
+//    @ObservedObject var vm = CategoryDetailsViewModel()
     
     var body: some View {
         ZStack {
@@ -61,7 +83,17 @@ struct CategoryDetailsView: View {
                 
             } else {
                 ZStack {
-                    Text(vm.errorMessage)
+                    
+                    if !vm.errorMessage.isEmpty {
+                        VStack {
+                            Image(systemName: "xmark.octagon")
+                                .font(.system(size: 64, weight: .semibold))
+                                .foregroundColor(.red)
+                                .padding()
+                            Text(vm.errorMessage)
+                        }
+                    }
+                    
                     ScrollView {
                         ForEach(vm.places, id: \.self) { place in
                             VStack(alignment: .leading, spacing: 0) {
@@ -83,12 +115,15 @@ struct CategoryDetailsView: View {
                 }
             
             }
-        }.navigationBarTitle("Category", displayMode: .inline)
+        }.navigationBarTitle(name, displayMode: .inline)
     }
 }
 
 struct CategoryDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryDetailsView()
+        NavigationView {
+            CategoryDetailsView(name: "Arts")
+        }
+        
     }
 }
