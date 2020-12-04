@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C103C677257979FC0075DF1B /* RestaurantPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C103C676257979FC0075DF1B /* RestaurantPhotosView.swift */; };
+		C103C67A257A6CD50075DF1B /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C103C679257A6CD50075DF1B /* Carousel.swift */; };
 		C165E502256848A200926067 /* DestinationHeaderContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C165E501256848A200926067 /* DestinationHeaderContainer.swift */; };
 		C165E5072574290300926067 /* RestaurantDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C165E5062574290300926067 /* RestaurantDetailsView.swift */; };
 		C18AE9D825553017006B3BBB /* TravelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18AE9D725553017006B3BBB /* TravelApp.swift */; };
@@ -30,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C103C676257979FC0075DF1B /* RestaurantPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantPhotosView.swift; sourceTree = "<group>"; };
+		C103C679257A6CD50075DF1B /* Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
 		C165E501256848A200926067 /* DestinationHeaderContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationHeaderContainer.swift; sourceTree = "<group>"; };
 		C165E5062574290300926067 /* RestaurantDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsView.swift; sourceTree = "<group>"; };
 		C18AE9D425553017006B3BBB /* Travel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Travel.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,6 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				C165E5062574290300926067 /* RestaurantDetailsView.swift */,
+				C103C676257979FC0075DF1B /* RestaurantPhotosView.swift */,
+				C103C679257A6CD50075DF1B /* Carousel.swift */,
 			);
 			path = Restaurant;
 			sourceTree = "<group>";
@@ -254,6 +260,8 @@
 				C18AE9D825553017006B3BBB /* TravelApp.swift in Sources */,
 				C18AE9F625583F5E006B3BBB /* DiscoverCategoriesView.swift in Sources */,
 				C18AE9FA2558401A006B3BBB /* Destination.swift in Sources */,
+				C103C677257979FC0075DF1B /* RestaurantPhotosView.swift in Sources */,
+				C103C67A257A6CD50075DF1B /* Carousel.swift in Sources */,
 				C18AEA1925588176006B3BBB /* ActivityIndicatorView.swift in Sources */,
 				C18AEA15255880F7006B3BBB /* CategoryDetailView.swift in Sources */,
 			);

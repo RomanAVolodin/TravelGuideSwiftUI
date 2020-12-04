@@ -64,7 +64,7 @@ struct RestaurantDetailsView: View {
                     .scaledToFill()
                 
                 LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)), Color.clear]), startPoint: .bottom, endPoint: .center)
-                     .ignoresSafeArea()
+                    .ignoresSafeArea()
                 
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
@@ -80,11 +80,17 @@ struct RestaurantDetailsView: View {
                         }
                     }
                     Spacer()
-                    Text("See more photos")
-                        .foregroundColor(.white)
-                        .font(.system(size: 14, weight: .bold))
-                        .frame(width: 80)
-                        .multilineTextAlignment(.trailing)
+                    
+                    NavigationLink(
+                        destination: RestaurantPhotosView(),
+                        label: {
+                            Text("See more photos")
+                                .foregroundColor(.white)
+                                .font(.system(size: 14, weight: .bold))
+                                .frame(width: 80)
+                                .multilineTextAlignment(.trailing)
+                        })
+                   
                 }
                 .padding()
                 
@@ -107,7 +113,7 @@ struct RestaurantDetailsView: View {
                     Spacer()
                 }
                 
-            
+                
             })
             .padding(.top)
             .padding(.horizontal)
@@ -138,8 +144,8 @@ struct RestaurantDetailsView: View {
             if let reviews = vm.details?.reviews {
                 ReviewsList(reviews: reviews)
             }
-        
- 
+            
+            
         }
         .navigationBarTitle("Restaurant Details", displayMode: .inline)
     }
@@ -159,48 +165,48 @@ struct ReviewsList: View {
         }.padding(.horizontal)
         
         
-            ForEach(reviews, id: \.self) { review in
-                VStack(alignment: .leading) {
+        ForEach(reviews, id: \.self) { review in
+            VStack(alignment: .leading) {
+                
+                HStack {
                     
-                    HStack {
-                        
-                        KFImage(URL(string: review.user.profileImage))
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 44)
-                            .clipShape(Circle())
-                            
-                        VStack (alignment: .leading, spacing: 4) {
-                            Text("\(review.user.firstName) \(review.user.lastName)")
-                                .font(.system(size: 14, weight: .bold))
-                            
-                            HStack (spacing: 4) {
-                                ForEach(0..<review.rating, id: \.self) { _ in
-                                    Image(systemName: "star.fill")
-                                        .foregroundColor(.orange)
-                                        .font(.system(size: 12))
-                                }
-                                
-                                ForEach(0..<5 - review.rating, id: \.self) { _ in
-                                    Image(systemName: "star.fill")
-                                        .foregroundColor(.gray)
-                                        .font(.system(size: 12))
-                                }
-                            }
+                    KFImage(URL(string: review.user.profileImage))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 44)
+                        .clipShape(Circle())
                     
-                        }
-
-                        Spacer()
-                        Text("Dec 2020")
+                    VStack (alignment: .leading, spacing: 4) {
+                        Text("\(review.user.firstName) \(review.user.lastName)")
                             .font(.system(size: 14, weight: .bold))
+                        
+                        HStack (spacing: 4) {
+                            ForEach(0..<review.rating, id: \.self) { _ in
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.orange)
+                                    .font(.system(size: 12))
+                            }
+                            
+                            ForEach(0..<5 - review.rating, id: \.self) { _ in
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: 12))
+                            }
+                        }
+                        
                     }
                     
-                    Text(review.text)
-                        .font(.system(size: 14, weight: .regular))
-                        
-                }.padding(.top)
-                .padding(.horizontal)
-            }
+                    Spacer()
+                    Text("Dec 2020")
+                        .font(.system(size: 14, weight: .bold))
+                }
+                
+                Text(review.text)
+                    .font(.system(size: 14, weight: .regular))
+                
+            }.padding(.top)
+            .padding(.horizontal)
+        }
         
     }
 }
@@ -219,7 +225,7 @@ struct DishCell: View {
                     .padding(.vertical, 2)
                 
                 LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black]), startPoint: .center, endPoint: .bottom)
-                     .ignoresSafeArea()
+                    .ignoresSafeArea()
                 
                 Text(dish.price)
                     .foregroundColor(.white)
@@ -229,7 +235,7 @@ struct DishCell: View {
                 
             }.frame(height: 120)
             .cornerRadius(5)
-
+            
             
             Text(dish.name)
                 .font(.system(size: 14, weight: .bold))
