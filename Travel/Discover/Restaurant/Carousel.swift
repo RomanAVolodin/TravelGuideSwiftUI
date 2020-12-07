@@ -11,9 +11,10 @@ import KingfisherSwiftUI
 struct ReastaurantCarouselContainer: UIViewControllerRepresentable {
     
     let imageUrlStrings: [String]
+    let selectedIndex: Int
     
     func makeUIViewController(context: Context) -> UIViewController {
-        let pvc = ReastaurantCarouselPageViewController(imageUrlStrings: imageUrlStrings)
+        let pvc = ReastaurantCarouselPageViewController(imageUrlStrings: imageUrlStrings, selectedIndex: selectedIndex)
         return pvc
     }
     
@@ -31,7 +32,7 @@ class ReastaurantCarouselPageViewController: UIPageViewController, UIPageViewCon
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        0
+        self.selectedIndex
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -48,8 +49,11 @@ class ReastaurantCarouselPageViewController: UIPageViewController, UIPageViewCon
     
     
     var allControllers: [UIViewController] = []
+    var selectedIndex: Int
     
-    init(imageUrlStrings: [String]) {
+    init(imageUrlStrings: [String], selectedIndex: Int) {
+        self.selectedIndex = selectedIndex
+        
         UIPageControl.appearance().pageIndicatorTintColor = .systemGray5
         UIPageControl.appearance().currentPageIndicatorTintColor = .red
         
@@ -71,9 +75,13 @@ class ReastaurantCarouselPageViewController: UIPageViewController, UIPageViewCon
             return hostingController
         })
         
-        if let first = allControllers.first {
-            setViewControllers([first], direction: .forward, animated: true, completion: nil)
+        if selectedIndex < allControllers.count {
+            setViewControllers([allControllers[selectedIndex]], direction: .forward, animated: true, completion: nil)
         }
+        
+//        if let first = allControllers.first {
+//            setViewControllers([first], direction: .forward, animated: true, completion: nil)
+//        }
         
     }
     

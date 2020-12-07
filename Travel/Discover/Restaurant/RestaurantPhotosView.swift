@@ -15,6 +15,8 @@ struct RestaurantPhotosView: View {
     
     @State var mode = "grid"
     @State var shouldShowFullScreenModal = false
+    @State var selectedPhotoIndex = 0
+    
     init() {
         UISegmentedControl.appearance().backgroundColor = .black
         UISegmentedControl.appearance().selectedSegmentTintColor = .orange
@@ -26,12 +28,11 @@ struct RestaurantPhotosView: View {
         
         GeometryReader { proxy in
             ScrollView {
-                
                 Spacer().fullScreenCover(isPresented: $shouldShowFullScreenModal, content: {
                     ZStack(alignment: .topLeading) {
                         Color.black.ignoresSafeArea()
                         
-                        ReastaurantCarouselContainer(imageUrlStrings: photoUrlStrings)
+                        ReastaurantCarouselContainer(imageUrlStrings: photoUrlStrings, selectedIndex: selectedPhotoIndex)
                         
                         Button(action: {
                             shouldShowFullScreenModal.toggle()
@@ -41,7 +42,7 @@ struct RestaurantPhotosView: View {
                                 .padding()
                         })
                     }
-                })
+                }).opacity(shouldShowFullScreenModal ? 1 : 0)
                 
                 Picker("TEST", selection: $mode) {
                     Text("Grid").tag("grid")
@@ -55,6 +56,7 @@ struct RestaurantPhotosView: View {
                     ], spacing: 4, content: {
                         ForEach(photoUrlStrings, id: \.self){ photoUrlString in
                             Button(action: {
+                                self.selectedPhotoIndex = photoUrlStrings.firstIndex(of: photoUrlString) ?? 0
                                 shouldShowFullScreenModal.toggle()
                             }, label: {
                                 KFImage(URL(string: photoUrlString))
